@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const Root = () => {
   const handleAddStudent = (e) => {
     e.preventDefault();
@@ -23,8 +25,10 @@ const Root = () => {
   return (
     <div className="flex justify-center items-center min-h-screen">
       <div>
-        <h1 className="text-3xl font-bold mb-5">Home Page</h1>
-        <form onSubmit={handleAddStudent}>
+        <Link to="/users" className="text-xl font-bold bg-blue-500">
+          Go To Users Page
+        </Link>
+        <form onSubmit={handleAddStudent} className="my-5">
           <input
             type="text"
             name="name"
