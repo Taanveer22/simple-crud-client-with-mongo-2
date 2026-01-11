@@ -16,7 +16,7 @@ const Users = () => {
       .then((data) => {
         // console.log(data);
         if (data.deletedCount > 0) {
-          alert("user deleted successfully");
+          alert("student deleted successfully");
         }
 
         const remainingUsers = users.filter(
@@ -37,7 +37,10 @@ const Users = () => {
         <div className="">
           {users.map((item) => (
             <p key={item._id} className="bg-yellow-500 my-5">
-              {item.name} : {item.email} : {item._id}{" "}
+              {item.name} : {item.email} : {item._id}
+              <Link to={`/users/${item._id}`} className="bg-green-500 p-1 mx-5">
+                Update
+              </Link>
               <button
                 onClick={() => handleDelete(item._id)}
                 className="bg-red-500 p-1"

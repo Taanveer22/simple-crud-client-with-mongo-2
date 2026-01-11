@@ -1,19 +1,18 @@
-import { Link } from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
 
-const Root = () => {
-  const handleAddStudent = (e) => {
+const Update = () => {
+  const data = useLoaderData();
+  console.log(data);
+  const handleUpdate = (e) => {
     e.preventDefault();
     const name = e.target.name.value;
     const email = e.target.email.value;
-    const info = {
-      name,
-      email,
-    };
-    // console.log(info);
+    const info = { name, email };
+    console.log(info);
 
-    // send data to server side 
-    fetch("http://localhost:5000/users", {
-      method: "POST",
+    // send data to server side
+    fetch(`http://localhost:5000/users/${data._id}`, {
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
@@ -21,23 +20,19 @@ const Root = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        // console.log(data);
-        if (data.insertedId) {
-          alert("student added successfully");
-          // form reset after successfully added
-          e.target.reset();
+        console.log(data);
+        if (data.modifiedCount > 0) {
+          alert("student data updated");
         }
       });
   };
-
   return (
     <div className="flex justify-center items-center min-h-screen">
       <div>
-        <Link to="/users" className="text-xl font-bold bg-blue-500">
-          Go To Users Page
-        </Link>
-        <form onSubmit={handleAddStudent} className="my-5">
+        <h1 className="text-3xl font-semibold">Update data of {data.name}</h1>
+        <form onSubmit={handleUpdate} className="my-5">
           <input
+            defaultValue={data?.name}
             type="text"
             name="name"
             className="border-2 border-green-500"
@@ -45,6 +40,7 @@ const Root = () => {
           />
           <br /> <br />
           <input
+            defaultValue={data?.email}
             type="email"
             name="email"
             className="border-2 border-green-500"
@@ -53,8 +49,8 @@ const Root = () => {
           <br /> <br />
           <input
             type="submit"
-            value="Add Student"
-            className="bg-red-500 rounded-full p-1"
+            value="Update Student"
+            className="bg-orange-500 rounded-full p-1"
           />
         </form>
       </div>
@@ -62,4 +58,4 @@ const Root = () => {
   );
 };
 
-export default Root;
+export default Update;
