@@ -9,7 +9,7 @@ const Root = () => {
       name,
       email,
     };
-    console.log(info);
+    // console.log(info);
 
     fetch("http://localhost:5000/users", {
       method: "POST",
@@ -19,7 +19,14 @@ const Root = () => {
       body: JSON.stringify(info),
     })
       .then((res) => res.json())
-      .then((data) => console.log(data));
+      .then((data) => {
+        // console.log(data);
+        if (data.insertedId) {
+          alert("users added successfully");
+          // form reset after successfully added
+          e.target.reset();
+        }
+      });
   };
 
   return (
@@ -43,7 +50,11 @@ const Root = () => {
             placeholder="email"
           />
           <br /> <br />
-          <input type="submit" value="Add Student" className="bg-red-500 p-1" />
+          <input
+            type="submit"
+            value="Add Student"
+            className="bg-red-500 rounded-full p-1"
+          />
         </form>
       </div>
     </div>
